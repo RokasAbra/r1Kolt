@@ -6,6 +6,7 @@ import Create from './components/Create';
 import { create, edit, read, remove } from './Functions/localStorage';
 import List from './components/List';
 import Edit from './components/Edit';
+import Sorting from './components/Sorting';
 
 
 
@@ -28,19 +29,19 @@ function App() {
   const [scooters, setScooters] = useState(null); //read
   const [deleteData, setDeleteData] = useState(null); //delete
   const [editData, setEditData] = useState(null);//edit
-
+  const [sortScooters, setSortScooters] = useState('0')
   const [sum, setSum] = useState(0);
 
-  useEffect(() => {
-    if (null === scooters) {
-      return ;
-    }
-    setSum(0);
-    for (let i = 0; i < scooters.length; i++) {
-      setSum((x) => x + scooters[i].distance);
-      
-    }
-  },[scooters])
+    useEffect(() => {
+      if (null === scooters) {
+        return ;
+      }
+      setSum(0);
+      for (let i = 0; i < scooters.length; i++) {
+        setSum((x) => x + scooters[i].distance);
+        
+      }
+    },[scooters])
   
   //1. Create 
   useEffect(() => {
@@ -71,33 +72,58 @@ useEffect(() => {
   }
   edit(editData);
   setLastUpdate(Date.now());
-},[editData])
+},[editData]);
+
+// Sort 
+useEffect(() => {
+  localStorage.getItem('Sorting') ? setSortScooters(localStorage.getItem('Sorting')) : setSortScooters('1');
+},[])
   return (
     <>
+    <div className='App'>
     <div className="container">
     
       <div className='row'>
         <div className='col-4'>
-        <h1><svg className='kolt'> <use href='#kolt'></use></svg></h1>
-        <Create setCreateData={setCreateData}></Create>
+        <h1><svg className='kolt'> <use className='kolt' href='#kolt'></use></svg></h1>
+        <Create setCreateData={setCreateData} setScooters={scooters}></Create>
         </div>
       <div className='col-8'>
        <List scooters={scooters}
        setDeleteData={setDeleteData}
-       setModalData={setModalData}></List>
+       setModalData={setModalData}
+       sortScooters={sortScooters}
+       setSortScooters={setSortScooters}
+      >
+        
+       </List>
        
       </div>
       <Edit setEditData={setEditData}
       modalData={modalData}
       setModalData={setModalData}></Edit>
       </div>
+      <footer ><div> 
+      <ul>
+       Statistics: <br />
+        <li><div>Kolts: {scooters && scooters.length} </div></li>
+        <li><div> Total distance rided: {sum} Km. </div></li>
+      </ul>
+      
+      <Sorting setSortScooters={setSortScooters} sortScooters={sortScooters}></Sorting>
+      </div>
+    </footer>
     </div>
-    {/* <h3 className='footer'>Statistika: 
-     <i>Viso paspirtuku: {scooters && scooters.length}</i>
-      <i>Bendras nuvaziuotas atstumas: {sum} Km.</i>
-    </h3> */}
+    
+   
+    </div>
+   
     </>
   );
 }
 
 export default App;
+
+
+
+

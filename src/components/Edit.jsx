@@ -4,8 +4,8 @@ function Edit({modalData, setModalData, setEditData}) {
     
     const [registrationCode,setRegistrationCode] = useState('');
     const [isBusy, setIsBusy] = useState(1);
-    const [lastUseTime, setLastUseTime] = useState('');
-    const [distance, setDistance] = useState('');
+    const [lastUseTime, setLastUseTime] = useState('yyyy-MM-dd');
+    const [distance, setDistance] = useState(0);
         useEffect(() => {
             if(null === modalData){
                 return
@@ -25,8 +25,10 @@ function Edit({modalData, setModalData, setEditData}) {
             };
             setEditData(data);
             setModalData(null);
-            distance(0);
+            setDistance(0);
+            console.log(data);
         };
+        
         if (null === modalData) {
             return null;
         }
@@ -56,7 +58,7 @@ function Edit({modalData, setModalData, setEditData}) {
                 </div>
                 <div className="editoFooter">
                     <button onClick={() => setModalData(null)}>Close</button>
-                    <button onClick={handleEdit}>Save Changes</button>
+                    <button onClick={handleEdit} >Save Changes</button>
                 </div>
             </div>
         </div>

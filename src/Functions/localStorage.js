@@ -1,3 +1,4 @@
+
 import getId from "./getId";
 
 const key = 'kolt';
@@ -42,4 +43,15 @@ export function edit(obj) {
     data = data.map(oldObject => oldObject.id !== obj.id ? oldObject : obj);
     data = JSON.stringify(data);
     localStorage.setItem(key, data); //idedame nauja key'iu ir data i localStorage
+}
+
+export function sortingScooters(obj) {
+    let data = localStorage.getItem('Sorting');
+    if (null === data) {
+        data = JSON.stringify('1');
+    }
+    data = JSON.parse(data);
+    data = JSON.stringify(data);
+    localStorage.setItem('Sorting', obj)
+    return data;
 }

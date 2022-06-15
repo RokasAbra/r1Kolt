@@ -13,21 +13,21 @@ function Create({setCreateData}) {
 
     const [registrationCode, setRegistrationCode] = useState(getRegCode());
     const [isBusy, setIsBusy] = useState(1);
-    const [lastUseTime, setLastUseTime] = useState(0);
-    const [TotalRideKilometers, setTotalRideKilometers] = useState(0);
+    const [lastUseTime, setLastUseTime] = useState("yyyy-MM-dd");
+    const [distance, setdistance] = useState(0);
    
     const handleCreate = () => {
         const data = {
             registrationCode,
             isBusy,
             lastUseTime,
-            TotalRideKilometers,
+            distance,
         }
         setCreateData(data);
         setRegistrationCode(getRegCode());
         setIsBusy(1);
-        setLastUseTime(0);
-        setTotalRideKilometers(0);
+        setLastUseTime("yyyy-MM-dd");
+        setdistance(0);
     };
 
     return (
